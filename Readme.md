@@ -34,7 +34,7 @@ stuff which I recently extracted to three modules. Who's example it
 is now?
 
 It lives in a separate board in real world like Flower friend and
-Pour manager, Hygrometer, Ultrasonic ruler and Willy the rover "projects".
+Pour manager, Hygrometer, Ultrasonic ruler and Willy the Rover "projects".
 But this board has generic modular design, not like custom builds for them.
 It has no physical buttons or screens. But it has console interface.
 Which just tolerates human. Really it expects something another on that end.
