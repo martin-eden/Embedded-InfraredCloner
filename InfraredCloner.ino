@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-09-15
+  Last mod.: 2025-09-23
 */
 
 /*
@@ -30,7 +30,7 @@
 
 #include <me_DigitalSignalRecorder.h>
 #include <me_ModulatedSignalPlayer.h>
-#include <me_Timestamp.h>
+#include <me_Duration.h>
 #include <me_Delays.h>
 
 #include <me_Menu.h>
@@ -64,7 +64,11 @@ void SetupRecorder()
 
 void SetupFreqGen()
 {
-  const TUint_4 EmitFreq_Hz = 38000;
+  // 22 -
+  // 26 +
+  // 48 +
+  // 52 -
+  const TUint_4 EmitFreq_Hz = 37000;
 
   if (!me_ModulatedSignalPlayer::SetFrequency_Hz(EmitFreq_Hz))
     Console.Print("Failed to set frequency.");
@@ -72,7 +76,7 @@ void SetupFreqGen()
 
 void PlaySignal(
   TBool IsOn,
-  me_Timestamp::TTimestamp Duration
+  me_Duration::TDuration Duration
 )
 {
   /*
@@ -88,10 +92,10 @@ void PlaySignal(
 
 void ReplayDurations()
 {
-  const me_Timestamp::TTimestamp DelayCompensation = { 0, 0, 0, 190 };
+  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 190 };
   TUint_2 Index;
   me_DigitalSignalRecorder::TSignalEvent PrevEvent, CurEvent;
-  me_Timestamp::TTimestamp Duration;
+  me_Duration::TDuration Duration;
   TBool IsOn;
 
   if (!DigitalSignalRecorder.GetEvent(&PrevEvent, 1))
@@ -105,15 +109,15 @@ void ReplayDurations()
       break;
 
     Duration = CurEvent.Timestamp;
-    if (!me_Timestamp::Subtract(&Duration, PrevEvent.Timestamp))
+    if (!me_Duration::Subtract(&Duration, PrevEvent.Timestamp))
       break;
 
     IsOn = !PrevEvent.IsOn;
 
     if (!IsOn)
     {
-      if (!me_Timestamp::Subtract(&Duration, DelayCompensation))
-        Duration = me_Timestamp::Zero;
+      if (!me_Duration::Subtract(&Duration, DelayCompensation))
+        Duration = me_Duration::Zero;
     }
 
     PlaySignal(IsOn, Duration);
