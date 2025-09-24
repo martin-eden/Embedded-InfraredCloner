@@ -26,23 +26,15 @@ Record and play infrared signal.
 
 ## Notes/details
 
-Programs are flowers of framework.. But this one shapes framework.
+This is C++ program for ATmega328/P (Arduino Uno). It allows you to
+capture signal from infrared receiver. It allows you to play captured
+signal. And print it.
 
-This one was standalone program. Then library. Then example to library.
+To try, connect receiver to pin 8, emitter to pin 3 and upload code
+in hex file in `bin/`. Connect to serial port at 115200 baud.
 
-I wanted to make code occupy less screens and `[me_Menu]` and
-`[me_Console]` were created. And `[me_Counters]`.
-Each one took at least couple of months work.
-
-It lived as example in `[me_Counters]` doing some useful low-level
-stuff which I recently extracted to three modules. Who's example it
-is now?
-
-It lives in a separate board in real world like Flower friend and
-Pour manager, Hygrometer, Ultrasonic ruler and Willy the Rover "projects".
-But this board has generic modular design, not like custom builds for them.
-It has no physical buttons or screens. But it has console interface.
-Which just tolerates human. Really it expects something another on that end.
+To modify, use `GetLibs` to get framework libraries and compile
+sketch.
 
 
 ## See also
