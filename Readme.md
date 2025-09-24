@@ -15,7 +15,7 @@ Record and play infrared signal.
 
   * Software
 
-    * If you just want to upload compiled code run [Upload.sh][Upload] in `bin/`
+    * If you just want to upload compiled code run `Upload.sh` in [`bin/`][bin]
     * [GetLibs][GetLibs]
     * [Craft][Craft]
 
@@ -47,7 +47,7 @@ Which just tolerates human. Really it expects something another on that end.
 * [My other repositories][Repos]
 
 
-[Upload]: bin/
+[bin]: bin/
 
 [Craft]: InfraredCloner.ino
 
