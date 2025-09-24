@@ -4,6 +4,10 @@
 
 Record and play infrared signal.
 
+![Body][Image_Body]
+![Interface][Image_Mind]
+![Data][Image_IrData]
+
 
 ## Requirements
 
@@ -50,6 +54,9 @@ Which just tolerates human. Really it expects something another on that end.
 [bin]: bin/
 
 [Craft]: InfraredCloner.ino
+[Image_Body]: Pictures/Infrared%20cloner%20body.jpg
+[Image_Mind]: Pictures/Infrared%20cloner%20mind.png
+[Image_IrData]: Pictures/IR%20data%20series.png
 
 [GetLibs]: https://github.com/martin-eden/Embedded-Framework-GetLibs
 
