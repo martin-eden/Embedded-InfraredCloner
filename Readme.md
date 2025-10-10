@@ -29,7 +29,12 @@ This is C++ program for ATmega328/P (Arduino Uno). It allows you to
 capture signal from infrared receiver. It allows you to play captured
 signal. And print it.
 
-To try, connect receiver to pin 8, emitter to pin 3 and upload code
+It is designed to capture infrared signal from consumer emitters,
+not to replace oscilloscope.
+
+Duration precision is 4 micro-seconds, data points capacity is 80.
+
+To try, connect receiver to pin 8, emitter to pin 5 and upload code
 in hex file in `bin/`. Connect to serial port at 115200 baud.
 
 To modify, use `GetLibs` to get framework libraries and compile

@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-09-23
+  Last mod.: 2025-10-10
 */
 
 /*
@@ -23,7 +23,7 @@
   Wiring
 
     8 Input
-    3 Output
+    5 Output
 */
 
 #include <me_BaseTypes.h>
@@ -37,11 +37,10 @@
 #include <me_Console.h>
 
 using
-  me_DigitalSignalRecorder::TSignalEvent,
   me_DigitalSignalRecorder::DigitalSignalRecorder;
 
 const TUint_2 NumSignals_Max = 80;
-TSignalEvent Signals[NumSignals_Max];
+me_DigitalSignalRecorder::TSignalEvent Signals[NumSignals_Max];
 TAddressSegment SignalsSpan = { (TAddress) &Signals, sizeof(Signals) };
 
 void PrintDurations()
