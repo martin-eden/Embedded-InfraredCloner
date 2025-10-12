@@ -4,8 +4,8 @@
 
 Record and play infrared signal.
 
-![Body][Image_Body]
 ![Interface][Image_Mind]
+![Body][Image_Body]
 
 
 ## Requirements
@@ -34,7 +34,7 @@ not to replace oscilloscope.
 
 Duration precision is 4 micro-seconds, data points capacity is 80.
 
-To try, connect receiver to pin 8, emitter to pin 5 and upload code
+To try, connect receiver to pin 8, emitter to pin 6 and upload code
 in hex file in `bin/`. Connect to serial port at 115200 baud.
 
 To modify, use `GetLibs` to get framework libraries and compile

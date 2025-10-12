@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-10
+  Last mod.: 2025-10-12
 */
 
 /*
@@ -23,7 +23,7 @@
   Wiring
 
     8 Input
-    5 Output
+    6 Output
 */
 
 #include <me_BaseTypes.h>
@@ -63,11 +63,8 @@ void SetupRecorder()
 
 void SetupFreqGen()
 {
-  // 22 -
-  // 26 +
-  // 48 +
-  // 52 -
-  const TUint_4 EmitFreq_Hz = 37000;
+  // 22- 26+ .. 48+ 52-
+  const TUint_4 EmitFreq_Hz = 40000;
 
   if (!me_ModulatedSignalPlayer::SetFrequency_Hz(EmitFreq_Hz))
     Console.Print("Failed to set frequency.");
@@ -127,11 +124,6 @@ void ReplayDurations()
   }
 }
 
-void TestEmitter()
-{
-  PlaySignal(true, { 0, 0, 0, 350 });
-}
-
 void StartRecording_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
@@ -165,14 +157,6 @@ void Replay_Handler(
   ReplayDurations();
 }
 
-void TestEmitter_Handler(
-  TUint_2 Data [[gnu::unused]],
-  TUint_2 Instance [[gnu::unused]]
-)
-{
-  TestEmitter();
-}
-
 void AddMenuItems(
   me_Menu::TMenu * Menu
 )
@@ -194,10 +178,6 @@ void AddMenuItems(
   );
   Menu->AddItem(
     ToItem("r", "Replay captured data", Replay_Handler, Unused)
-  );
-
-  Menu->AddItem(
-    ToItem("t", "Test emitter", TestEmitter_Handler, Unused)
   );
 }
 
@@ -233,4 +213,5 @@ void loop()
   2025 # # # # # # # # #
   2025-09-14
   2025-09-15
+  2025-10-12
 */
