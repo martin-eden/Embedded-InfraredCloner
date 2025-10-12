@@ -18,27 +18,35 @@ Record and play infrared signal.
 
   * Software
 
-    * If you just want to upload compiled code run `Upload.sh` in [`bin/`][bin]
+    * If you just want to upload compiled code run `Upload.sh` from [`bin/`][bin]
     * [GetLibs][GetLibs]
     * [Craft][Craft]
 
 
 ## Notes/details
 
-This is C++ program for ATmega328/P (Arduino Uno). It allows you to
-capture signal from infrared receiver. It allows you to play captured
-signal. And print it.
+This is C++ program for ATmega328/P (Arduino Uno).
+
+It allows you to
+
+  [x] Capture signal from infrared receiver
+  [x] Play captured signal on infrared emitter
+  [x] Store/load signal in permanent memory (EEPROM)
+  [x] Print signal in text format
 
 It is designed to capture infrared signal from consumer emitters,
 not to replace oscilloscope.
 
-Duration precision is 4 micro-seconds, data points capacity is 80.
+Duration **precision is 4** micro-seconds, data points **capacity is 80**.
 
-To try, connect receiver to pin 8, emitter to pin 6 and upload code
-in hex file in `bin/`. Connect to serial port at 115200 baud.
 
-To modify, use `GetLibs` to get framework libraries and compile
-sketch.
+## Getting started
+
+To try, connect IR receiver to pin 8, IR emitter to pin 6 and
+run code upload script in `bin/Upload.sh`. Connect to serial port
+at 115200 baud.
+
+To modify, use `GetLibs` to get framework libraries and compile program.
 
 
 ## See also
