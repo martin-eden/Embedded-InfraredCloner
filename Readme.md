@@ -18,7 +18,7 @@ Record and play infrared signal.
 
   * Software
 
-    * If you just want to upload compiled code run `Upload.sh` from [`bin/`][bin]
+    * If you just want to upload compiled code -- run `Upload.sh` from [`bin/`][bin]
     * [GetLibs][GetLibs]
     * [Craft][Craft]
 
