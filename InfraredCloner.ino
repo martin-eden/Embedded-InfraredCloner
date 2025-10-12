@@ -45,10 +45,8 @@ TAddressSegment SignalsSpan = { (TAddress) &Signals, sizeof(Signals) };
 
 void PrintDurations()
 {
-  me_DigitalSignalRecorder::Save(
-    &DigitalSignalRecorder,
-    Console.GetOutputStream()
-  );
+  me_DigitalSignalRecorder::TextEncoder::
+    Save(&DigitalSignalRecorder, Console.GetOutputStream());
 }
 
 void ClearDurations()
