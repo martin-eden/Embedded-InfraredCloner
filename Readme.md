@@ -29,10 +29,10 @@ This is C++ program for ATmega328/P (Arduino Uno).
 
 It allows you to
 
-  [x] Capture signal from infrared receiver
-  [x] Play captured signal on infrared emitter
-  [x] Store/load signal in permanent memory (EEPROM)
-  [x] Print signal in text format
+  - [x] Capture signal from infrared receiver
+  - [x] Play captured signal on infrared emitter
+  - [x] Store/load signal in permanent memory (EEPROM)
+  - [x] Print signal in text format
 
 It is designed to capture infrared signal from consumer emitters,
 not to replace oscilloscope.
