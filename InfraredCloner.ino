@@ -32,6 +32,7 @@
 #include <me_ModulatedSignalPlayer.h>
 #include <me_Duration.h>
 #include <me_Delays.h>
+#include <me_StreamsCollection.h>
 
 #include <me_Menu.h>
 #include <me_Console.h>
@@ -41,7 +42,6 @@ using
 
 const TUint_2 NumSignals_Max = 80;
 me_DigitalSignalRecorder::TSignalEvent Signals[NumSignals_Max];
-TAddressSegment SignalsSpan = { (TAddress) &Signals, sizeof(Signals) };
 
 void PrintDurations()
 {
@@ -51,11 +51,13 @@ void PrintDurations()
 
 void ClearDurations()
 {
-  DigitalSignalRecorder.Init(SignalsSpan);
+  DigitalSignalRecorder.Clear();
 }
 
 void SetupRecorder()
 {
+  TAddressSegment SignalsSpan = { (TAddress) &Signals, sizeof(Signals) };
+
   DigitalSignalRecorder.Init(SignalsSpan);
 }
 
@@ -122,6 +124,24 @@ void ReplayDurations()
   }
 }
 
+void SaveToEeprom()
+{
+  me_StreamsCollection::TEepromOutputStream Eeprom;
+
+  Eeprom.Init();
+  me_DigitalSignalRecorder::BinaryCodec::Save(&DigitalSignalRecorder, &Eeprom);
+}
+
+void LoadFromEeprom()
+{
+  me_StreamsCollection::TEepromInputStream Eeprom;
+
+  Eeprom.Init();
+  me_DigitalSignalRecorder::BinaryCodec::Load(&Eeprom, &DigitalSignalRecorder);
+}
+
+// ( Menu item handlers
+
 void StartRecording_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
@@ -155,6 +175,24 @@ void Replay_Handler(
   ReplayDurations();
 }
 
+void Save_Handler(
+  TUint_2 Data [[gnu::unused]],
+  TUint_2 Instance [[gnu::unused]]
+)
+{
+  SaveToEeprom();
+}
+
+void Load_Handler(
+  TUint_2 Data [[gnu::unused]],
+  TUint_2 Instance [[gnu::unused]]
+)
+{
+  LoadFromEeprom();
+}
+
+// )
+
 void AddMenuItems(
   me_Menu::TMenu * Menu
 )
@@ -170,12 +208,17 @@ void AddMenuItems(
   Menu->AddItem(
     ToItem("e", "End recording", StopRecording_Handler, Unused)
   );
-
   Menu->AddItem(
-    ToItem("p", "Print captured data", PrintDurations_Handler, Unused)
+    ToItem("p", "Print data", PrintDurations_Handler, Unused)
   );
   Menu->AddItem(
-    ToItem("r", "Replay captured data", Replay_Handler, Unused)
+    ToItem("r", "Replay data", Replay_Handler, Unused)
+  );
+  Menu->AddItem(
+    ToItem("s", "Save data", Save_Handler, Unused)
+  );
+  Menu->AddItem(
+    ToItem("l", "Load data", Load_Handler, Unused)
   );
 }
 
@@ -187,7 +230,7 @@ void setup()
 
   SetupFreqGen();
 
-  Console.Print("IR signal player/recorder.");
+  Console.Print("IR signal player/recorder");
 
   {
     me_Menu::TMenu Menu;
@@ -200,7 +243,7 @@ void setup()
     Menu.Run();
   }
 
-  Console.Print("Done.");
+  Console.Print("Done");
 }
 
 void loop()
@@ -208,8 +251,6 @@ void loop()
 }
 
 /*
-  2025 # # # # # # # # #
-  2025-09-14
-  2025-09-15
+  2025 # # # # # # # # # # #
   2025-10-12
 */
