@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-12
+  Last mod.: 2025-10-14
 */
 
 /*
@@ -70,25 +70,27 @@ void SetupFreqGen()
     Console.Print("Failed to set frequency.");
 }
 
-void PlaySignal(
-  TBool IsOn,
-  me_Duration::TDuration Duration
-)
-{
-  /*
-    No duration adjustments here: Emit() is tuned and Delay() tuning
-    is observable only when interleaving with Emit(). And there is
-    no interleaving in this function.
-  */
-  if (IsOn)
-    me_ModulatedSignalPlayer::Emit(Duration);
-  else
-    me_Delays::Delay_Duration(Duration);
-}
-
+/*
+  Replay stored signal
+*/
 void ReplayDurations()
 {
+  /*
+    Signal stored as serie of timestamps.
+    We'll differentiate.. we'll convert timestamps to durations.
+    And replay signal using durations.
+
+    Implementation tries to make real observed signal last close to
+    original. For that we need to account time for decision-making
+    overhead.
+
+    Emit() has built-in compensation. For LOW signal, we compensate
+    delay time. Exact compensation is not possible in general case
+    but for our specific case our constants works just fine.
+  */
+
   const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 190 };
+
   TUint_2 Index;
   me_DigitalSignalRecorder::TSignalEvent PrevEvent, CurEvent;
   me_Duration::TDuration Duration;
@@ -116,7 +118,10 @@ void ReplayDurations()
         Duration = me_Duration::Zero;
     }
 
-    PlaySignal(IsOn, Duration);
+    if (IsOn)
+      me_ModulatedSignalPlayer::Emit(Duration);
+    else
+      me_Delays::Delay_Duration(Duration);
 
     PrevEvent = CurEvent;
 
@@ -253,4 +258,5 @@ void loop()
 /*
   2025 # # # # # # # # # # #
   2025-10-12
+  2025-10-14
 */
