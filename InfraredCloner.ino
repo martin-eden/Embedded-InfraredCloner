@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-14
+  Last mod.: 2025-10-26
 */
 
 /*
@@ -89,7 +89,7 @@ void ReplayDurations()
     but for our specific case our constants works just fine.
   */
 
-  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 190 };
+  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 200 };
 
   TUint_2 Index;
   me_DigitalSignalRecorder::TSignalEvent PrevEvent, CurEvent;
@@ -230,6 +230,9 @@ void AddMenuItems(
 void setup()
 {
   Console.Init();
+
+  me_Delays::Init();
+  me_ModulatedSignalPlayer::Init();
 
   SetupRecorder();
 
