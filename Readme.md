@@ -48,6 +48,10 @@ at 115200 baud.
 
 To modify, use `GetLibs` to get framework libraries and compile program.
 
+(Program compiled with current code may not work properly.
+That's life, not everything is always perfect. For version that works
+("worked some day when we tested it") use binary file.)
+
 
 ## See also
 
