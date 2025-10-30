@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-26
+  Last mod.: 2025-10-30
 */
 
 /*
@@ -89,7 +89,7 @@ void ReplayDurations()
     but for our specific case our constants works just fine.
   */
 
-  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 200 };
+  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 664 };
 
   TUint_2 Index;
   me_DigitalSignalRecorder::TSignalEvent PrevEvent, CurEvent;
@@ -112,16 +112,14 @@ void ReplayDurations()
 
     IsOn = !PrevEvent.IsOn;
 
-    if (!IsOn)
-    {
-      if (!me_Duration::Subtract(&Duration, DelayCompensation))
-        Duration = me_Duration::Zero;
-    }
-
     if (IsOn)
       me_ModulatedSignalPlayer::Emit(Duration);
     else
-      me_Delays::Delay_Duration(Duration);
+    {
+      if (!me_Duration::Subtract(&Duration, DelayCompensation))
+        Duration = me_Duration::Zero;
+      me_Delays::Delay_PreciseDuration(Duration);
+    }
 
     PrevEvent = CurEvent;
 
