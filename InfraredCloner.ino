@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-30
+  Last mod.: 2025-10-31
 */
 
 /*
@@ -41,7 +41,7 @@ using
   me_DigitalSignalRecorder::DigitalSignalRecorder;
 
 const TUint_2 NumSignals_Max = 80;
-me_DigitalSignalRecorder::TSignalEvent Signals[NumSignals_Max];
+me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
 
 void PrintDurations()
 {
@@ -64,7 +64,7 @@ void SetupRecorder()
 void SetupFreqGen()
 {
   // 22- 26+ .. 48+ 52-
-  const TUint_4 EmitFreq_Hz = 40000;
+  const TUint_4 EmitFreq_Hz = 38000;
 
   if (!me_ModulatedSignalPlayer::SetFrequency_Hz(EmitFreq_Hz))
     Console.Print("Failed to set frequency.");
@@ -76,54 +76,34 @@ void SetupFreqGen()
 void ReplayDurations()
 {
   /*
-    Signal stored as serie of timestamps.
-    We'll differentiate.. we'll convert timestamps to durations.
-    And replay signal using durations.
-
     Implementation tries to make real observed signal last close to
     original. For that we need to account time for decision-making
     overhead.
 
-    Emit() has built-in compensation. For LOW signal, we compensate
-    delay time. Exact compensation is not possible in general case
-    but for our specific case our constants works just fine.
+    Emit() has built-in compensation. Here we compensate delay time
+    for LOW signal.
   */
 
-  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 664 };
+  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 390 };
 
   TUint_2 Index;
-  me_DigitalSignalRecorder::TSignalEvent PrevEvent, CurEvent;
-  me_Duration::TDuration Duration;
-  TBool IsOn;
+  TUint_2 NumSignals;
+  me_DigitalSignalRecorder::TSignal Signal;
 
-  if (!DigitalSignalRecorder.GetEvent(&PrevEvent, 1))
-    return;
-
-  Index = 2;
-
-  while (true)
+  NumSignals = DigitalSignalRecorder.GetNumSignals();
+  for (Index = 1; Index <= NumSignals; ++Index)
   {
-    if (!DigitalSignalRecorder.GetEvent(&CurEvent, Index))
-      break;
+    DigitalSignalRecorder.GetSignal(&Signal, Index);
 
-    Duration = CurEvent.Timestamp;
-    if (!me_Duration::Subtract(&Duration, PrevEvent.Timestamp))
-      break;
-
-    IsOn = !PrevEvent.IsOn;
-
-    if (IsOn)
-      me_ModulatedSignalPlayer::Emit(Duration);
+    if (Signal.IsOn)
+      me_ModulatedSignalPlayer::Emit(Signal.Duration);
     else
     {
-      if (!me_Duration::Subtract(&Duration, DelayCompensation))
-        Duration = me_Duration::Zero;
-      me_Delays::Delay_PreciseDuration(Duration);
+      if (!me_Duration::Subtract(&Signal.Duration, DelayCompensation))
+        Signal.Duration = me_Duration::Zero;
+
+      me_Delays::Delay_PreciseDuration(Signal.Duration);
     }
-
-    PrevEvent = CurEvent;
-
-    Index = Index + 1;
   }
 }
 
@@ -260,4 +240,5 @@ void loop()
   2025 # # # # # # # # # # #
   2025-10-12
   2025-10-14
+  2025-10-31
 */
