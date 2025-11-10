@@ -20,12 +20,13 @@ Record and play infrared signal.
 
     * Upload compiled code:
 
-      * bash
-      * avrdude
-      * Run `Upload.sh` from [`bin/`][bin]
+      * `bash`
+      * `avrdude`
+      * Run [`Upload.sh`][Upload.sh] from `bin/`.
 
     * Compile code:
 
+      * `arduino-cli`
       * [GetLibs][GetLibs]
       * [Craft][Craft]
 
@@ -68,7 +69,7 @@ That's life, not everything is always perfect. For version that works
 * [My other repositories][Repos]
 
 
-[bin]: bin/
+[Upload.sh]: bin/Upload.sh
 
 [Craft]: InfraredCloner.ino
 [Image_Body]: Pictures/Infrared%20cloner%20body.jpg
