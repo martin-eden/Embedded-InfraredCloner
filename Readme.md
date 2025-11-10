@@ -18,9 +18,16 @@ Record and play infrared signal.
 
   * Software
 
-    * If you just want to upload compiled code -- run `Upload.sh` from [`bin/`][bin]
-    * [GetLibs][GetLibs]
-    * [Craft][Craft]
+    * Upload compiled code:
+
+      * bash
+      * avrdude
+      * Run `Upload.sh` from [`bin/`][bin]
+
+    * Compile code:
+
+      * [GetLibs][GetLibs]
+      * [Craft][Craft]
 
 
 ## Notes/details
@@ -31,13 +38,15 @@ It allows you to
 
   - [x] Capture signal from infrared receiver
   - [x] Play captured signal on infrared emitter
+  - [x] Store/load signal in text format
   - [x] Store/load signal in permanent memory (EEPROM)
-  - [x] Print signal in text format
 
 It is designed to capture infrared signal from consumer emitters,
 not to replace oscilloscope.
 
 Duration **precision is 4** micro-seconds, data points **capacity is 80**.
+
+Commands documentation is [here][Commands].
 
 
 ## Getting started
@@ -66,6 +75,8 @@ That's life, not everything is always perfect. For version that works
 [Image_Mind]: Pictures/Infrared%20cloner%20mind.png
 
 [GetLibs]: https://github.com/martin-eden/Embedded-Framework-GetLibs
+
+[Commands]: Architecture.md
 
 [Embedded]: https://github.com/martin-eden/Embedded_Crafts/tree/master/Parts
 [Repos]: https://github.com/martin-eden/contents
