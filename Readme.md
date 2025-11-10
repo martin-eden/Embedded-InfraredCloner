@@ -52,9 +52,10 @@ Commands documentation is [here][Commands].
 
 ## Getting started
 
-To try, connect IR receiver to pin 8, IR emitter to pin 6 and
-run code upload script in `bin/Upload.sh`. Connect to serial port
-at 115200 baud.
+* Receiver - pin 8
+* Emitter - pin 6
+* Run `Upload.sh`
+* Connect with 115200 baud
 
 To modify, use `GetLibs` to get framework libraries and compile program.
 
