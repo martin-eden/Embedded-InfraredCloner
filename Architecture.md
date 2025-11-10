@@ -41,8 +41,9 @@ That's generic commands that are available for any menu:
 
 #### Memory
 
-Memory data can be stored (and loaded) from text. Also it can be
-stored (and loaded) from EEPROM - persistent memory on ATmega328.
+Memory data can be loaded from Receiver.
+Also it can be loaded (and stored) from text (from UART).
+Also it can be loaded (and stored) from EEPROM (persistent memory on ATmega328).
 
   * `d - Discard data`
 
