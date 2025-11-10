@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-10-31
+  Last mod.: 2025-11-10
 */
 
 /*
@@ -42,12 +42,6 @@ using
 
 const TUint_2 NumSignals_Max = 80;
 me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
-
-void PrintDurations()
-{
-  me_DigitalSignalRecorder::TextEncoder::
-    Save(&DigitalSignalRecorder, Console.GetOutputStream());
-}
 
 void ClearDurations()
 {
@@ -107,6 +101,24 @@ void ReplayDurations()
   }
 }
 
+void PrintDurations()
+{
+  me_DigitalSignalRecorder::TextCodec::
+    Save(&DigitalSignalRecorder, Console.GetOutputStream());
+}
+
+void ParseDurations()
+{
+  ClearDurations();
+  TBool IsOk;
+
+  IsOk = me_DigitalSignalRecorder::TextCodec::
+    Load(&DigitalSignalRecorder, Console.GetInputStream());
+
+  if (!IsOk)
+    Console.Print("Failed to parse");
+}
+
 void SaveToEeprom()
 {
   me_StreamsCollection::TEepromOutputStream Eeprom;
@@ -120,7 +132,7 @@ void LoadFromEeprom()
   me_StreamsCollection::TEepromInputStream Eeprom;
 
   Eeprom.Init();
-  me_DigitalSignalRecorder::BinaryCodec::Load(&Eeprom, &DigitalSignalRecorder);
+  me_DigitalSignalRecorder::BinaryCodec::Load(&DigitalSignalRecorder, &Eeprom);
 }
 
 // ( Menu item handlers
@@ -142,14 +154,6 @@ void StopRecording_Handler(
   me_DigitalSignalRecorder::StopRecording();
 }
 
-void PrintDurations_Handler(
-  TUint_2 Data [[gnu::unused]],
-  TUint_2 Instance [[gnu::unused]]
-)
-{
-  PrintDurations();
-}
-
 void Replay_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
@@ -158,7 +162,31 @@ void Replay_Handler(
   ReplayDurations();
 }
 
-void Save_Handler(
+void Discard_Handler(
+  TUint_2 Data [[gnu::unused]],
+  TUint_2 Instance [[gnu::unused]]
+)
+{
+  ClearDurations();
+}
+
+void ExternalSave_Handler(
+  TUint_2 Data [[gnu::unused]],
+  TUint_2 Instance [[gnu::unused]]
+)
+{
+  PrintDurations();
+}
+
+void ExternalLoad_Handler(
+  TUint_2 Data [[gnu::unused]],
+  TUint_2 Instance [[gnu::unused]]
+)
+{
+  ParseDurations();
+}
+
+void InternalSave_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
@@ -166,7 +194,7 @@ void Save_Handler(
   SaveToEeprom();
 }
 
-void Load_Handler(
+void InternalLoad_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
@@ -192,16 +220,22 @@ void AddMenuItems(
     ToItem("e", "End recording", StopRecording_Handler, Unused)
   );
   Menu->AddItem(
-    ToItem("p", "Print data", PrintDurations_Handler, Unused)
-  );
-  Menu->AddItem(
     ToItem("r", "Replay data", Replay_Handler, Unused)
   );
   Menu->AddItem(
-    ToItem("s", "Save data", Save_Handler, Unused)
+    ToItem("d", "Discard data", Discard_Handler, Unused)
   );
   Menu->AddItem(
-    ToItem("l", "Load data", Load_Handler, Unused)
+    ToItem("es", "Print data to outside", ExternalSave_Handler, Unused)
+  );
+  Menu->AddItem(
+    ToItem("el", "Load data from outside", ExternalLoad_Handler, Unused)
+  );
+  Menu->AddItem(
+    ToItem("is", "Save data to internal memory", InternalSave_Handler, Unused)
+  );
+  Menu->AddItem(
+    ToItem("il", "Load data from internal memory", InternalLoad_Handler, Unused)
   );
 }
 
@@ -237,8 +271,7 @@ void loop()
 }
 
 /*
-  2025 # # # # # # # # # # #
-  2025-10-12
-  2025-10-14
+  2025 # # # # # # # # # # # # #
   2025-10-31
+  2025-11-10
 */
