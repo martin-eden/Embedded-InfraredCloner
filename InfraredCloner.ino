@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-11-10
+  Last mod.: 2025-11-12
 */
 
 /*
@@ -103,19 +103,14 @@ void ReplayDurations()
 
 void PrintDurations()
 {
-  me_DigitalSignalRecorder::TextCodec::
-    Save(&DigitalSignalRecorder, Console.GetOutputStream());
+  me_DigitalSignalRecorder::TextCodec::Save(&DigitalSignalRecorder);
 }
 
 void ParseDurations()
 {
   ClearDurations();
-  TBool IsOk;
 
-  IsOk = me_DigitalSignalRecorder::TextCodec::
-    Load(&DigitalSignalRecorder, Console.GetInputStream());
-
-  if (!IsOk)
+  if (!me_DigitalSignalRecorder::TextCodec::Load(&DigitalSignalRecorder))
     Console.Print("Failed to parse");
 }
 
