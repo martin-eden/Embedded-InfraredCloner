@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-11-12
+  Last mod.: 2025-11-18
 */
 
 /*
@@ -40,8 +40,8 @@
 using
   me_DigitalSignalRecorder::DigitalSignalRecorder;
 
-const TUint_2 NumSignals_Max = 80;
-me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
+static const TUint_2 NumSignals_Max = 80;
+static me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
 
 void ClearDurations()
 {
@@ -50,9 +50,7 @@ void ClearDurations()
 
 void SetupRecorder()
 {
-  TAddressSegment SignalsSpan = { (TAddress) &Signals, sizeof(Signals) };
-
-  DigitalSignalRecorder.Init(SignalsSpan);
+  DigitalSignalRecorder.Init(AsAddrSeg_M(Signals));
 }
 
 void SetupFreqGen()
