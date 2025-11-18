@@ -106,8 +106,6 @@ void PrintDurations()
 
 void ParseDurations()
 {
-  ClearDurations();
-
   if (!me_DigitalSignalRecorder::TextCodec::Load(&DigitalSignalRecorder))
     Console.Print("Failed to parse");
 }
@@ -135,7 +133,6 @@ void StartRecording_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
-  ClearDurations();
   me_DigitalSignalRecorder::StartRecording();
 }
 
@@ -267,4 +264,5 @@ void loop()
   2025 # # # # # # # # # # # # #
   2025-10-31
   2025-11-10
+  2025-11-18
 */
