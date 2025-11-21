@@ -87,3 +87,6 @@ Emitter replays data from Memory with signal modulated at 38 kHz.
   * `r - Replay data`
 
     Replays data from Memory.
+
+-- Martin, 2025-11-21
+
