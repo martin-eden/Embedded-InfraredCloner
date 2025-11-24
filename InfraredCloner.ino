@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-11-22
+  Last mod.: 2025-11-24
 */
 
 /*
@@ -203,7 +203,7 @@ void AddMenuItems(
   using
     me_Menu::Freetown::ToItem;
 
-  TUint_2 Unused = 0;
+  const TUint_2 Unused = 0;
 
   Menu->AddItem(
     ToItem("b", "Begin recording", StartRecording_Handler, Unused)
