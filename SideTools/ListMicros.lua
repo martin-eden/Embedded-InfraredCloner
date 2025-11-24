@@ -64,7 +64,7 @@ do
   local Output = io.open(OutputFileName, 'w')
   local WriteRecord =
     function(IsOn, NumMicros)
-      Output:write(string.format('%05d', NumMicros), '\n')
+      Output:write(string.format('%u', NumMicros), '\n')
     end
 
   for _ = 1, NumRecords do
