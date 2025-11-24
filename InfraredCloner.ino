@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-11-18
+  Last mod.: 2025-11-22
 */
 
 /*
@@ -36,6 +36,7 @@
 
 #include <me_Menu.h>
 #include <me_Console.h>
+#include <me_Uart.h>
 
 using
   me_DigitalSignalRecorder::DigitalSignalRecorder;
@@ -51,6 +52,7 @@ void ClearDurations()
 void SetupRecorder()
 {
   DigitalSignalRecorder.Init(AsAddrSeg_M(Signals));
+  me_DigitalSignalRecorder::PrepareRecorder();
 }
 
 void SetupFreqGen()
@@ -232,6 +234,7 @@ void AddMenuItems(
 void setup()
 {
   Console.Init();
+  me_Uart::Init(9600);
 
   me_Delays::Init();
   me_ModulatedSignalPlayer::Init();
