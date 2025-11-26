@@ -1,8 +1,8 @@
 ## What
 
-(2021/2025..)
+(2021/2025-11)
 
-Record and play infrared signal.
+Record and play infrared signal. Scriptable interface.
 
 ![Interface][Image_Mind]
 ![Body][Image_Body]
@@ -45,19 +45,21 @@ It allows you to
 It is designed to capture infrared signal from consumer emitters,
 not to replace oscilloscope.
 
-Duration **precision is 4** micro-seconds, data points **capacity is 80**.
+Data points capacity is **80**.
+Precision depends of current implementation.
+Generally writing precision **≈ 4 ㎲**, reading precision **≤ 4 ㎲**
 
 Commands documentation is [here][Commands].
 
 
 ## Getting started
 
-* Receiver - pin 8
-* Emitter - pin 6
-* Run `Upload.sh`
-* Connect with 115200 baud
+* Receiver - `pin 8`
+* Emitter - `pin 6`
+* Run [`Upload.sh`][Upload.sh]
+* Connect with `115200 baud`
 
-To modify, use `GetLibs` to get framework libraries and compile program.
+To modify, use [`GetLibs`][GetLibs] to get framework libraries and compile program.
 
 (Program compiled with current code may not work properly.
 That's life, not everything is always perfect. For version that works
