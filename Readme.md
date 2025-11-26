@@ -1,6 +1,6 @@
 ## What
 
-(2021/2025-11)
+(2025-09/2025-11)
 
 Record and play infrared signal. Scriptable interface.
 
