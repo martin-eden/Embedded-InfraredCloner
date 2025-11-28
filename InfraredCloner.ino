@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-11-25
+  Last mod.: 2025-11-28
 */
 
 /*
@@ -71,7 +71,7 @@ void ReplayDurations()
   /*
     Implementation tries to make real observed signal last close to
     original. For that we need to account time for decision-making
-    overhead.
+    and data fetching.
 
     Emit() has built-in compensation. Here we compensate delay time
     for LOW signal.
@@ -92,9 +92,7 @@ void ReplayDurations()
       me_ModulatedSignalPlayer::Emit(Signal.Duration);
     else
     {
-      if (!me_Duration::Subtract(&Signal.Duration, DelayCompensation))
-        Signal.Duration = me_Duration::Zero;
-
+      me_Duration::CappedSub(&Signal.Duration, DelayCompensation);
       me_Delays::Delay_PreciseDuration(Signal.Duration);
     }
   }
