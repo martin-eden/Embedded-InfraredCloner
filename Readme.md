@@ -45,9 +45,9 @@ It allows you to
 It is designed to capture infrared signal from consumer emitters,
 not to replace oscilloscope.
 
-Data points capacity is **80**.
+Data points capacity is **75**.
 Precision depends of current implementation.
-Generally writing precision **≈ 4 ㎲**, reading precision **≤ 4 ㎲**
+Generally writing precision **≈ 50 ㎲**, reading precision **≤ 4 ㎲**
 
 Commands documentation is [here][Commands].
 

@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-11-28
+  Last mod.: 2025-12-01
 */
 
 /*
@@ -40,7 +40,7 @@
 using
   me_DigitalSignalRecorder::DigitalSignalRecorder;
 
-static const TUint_2 NumSignals_Max = 80;
+static const TUint_2 NumSignals_Max = 75;
 static me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
 
 void ClearDurations()
@@ -75,9 +75,17 @@ void ReplayDurations()
 
     Emit() has built-in compensation. Here we compensate delay time
     for LOW signal.
+
+    Dry time for that functions for empty signal is near
+    <DelayCompensation>. If gap is shorter, we assume it's under 1 ms.
+    We're taking microseconds part and compare it with
+    <DecisionMaking_us>. If it's shorter, we do nothing, we already
+    wasted <DecisionMaking_us>. Else we ca;; microseconds delay
+    for remained number of microseconds.
   */
 
-  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 390 };
+  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 910 };
+  const TUint_2 DecisionMaking_Us = 360;
 
   TUint_2 Index;
   TUint_2 NumSignals;
@@ -90,11 +98,15 @@ void ReplayDurations()
 
     if (Signal.IsOn)
       me_ModulatedSignalPlayer::Emit(Signal.Duration);
-    else
+    else if (me_Duration::IsGreater(Signal.Duration, DelayCompensation))
     {
       me_Duration::CappedSub(&Signal.Duration, DelayCompensation);
       me_Delays::Delay_PreciseDuration(Signal.Duration);
     }
+    else if (Signal.Duration.MicroS > DecisionMaking_Us)
+      me_Delays::Delay_Us(Signal.Duration.MicroS - DecisionMaking_Us);
+    else
+      ;
   }
 }
 
