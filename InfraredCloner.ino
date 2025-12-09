@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-12-01
+  Last mod.: 2025-12-10
 */
 
 /*
@@ -101,7 +101,7 @@ void ReplayDurations()
     else if (me_Duration::IsGreater(Signal.Duration, DelayCompensation))
     {
       me_Duration::CappedSub(&Signal.Duration, DelayCompensation);
-      me_Delays::Delay_PreciseDuration(Signal.Duration);
+      me_Delays::Delay_Duration(Signal.Duration);
     }
     else if (Signal.Duration.MicroS > DecisionMaking_Us)
       me_Delays::Delay_Us(Signal.Duration.MicroS - DecisionMaking_Us);
@@ -243,9 +243,6 @@ void AddMenuItems(
 void setup()
 {
   Console.Init();
-
-  me_Delays::Init();
-  me_ModulatedSignalPlayer::Init();
 
   SetupRecorder();
 
