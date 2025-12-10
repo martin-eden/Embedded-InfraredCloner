@@ -45,25 +45,21 @@ Memory data can be loaded from Receiver.
 Also it can be loaded (and stored) from text (from UART).
 Also it can be loaded (and stored) from EEPROM (persistent memory on ATmega328).
 
-  * `d - Discard data`
-
-    Clear current data.
-
   * `es - Print data to outside`
 
-    External save. Prints data in text format.
+    External save. Print data in text format.
 
   * `el - Load data from outside`
 
-    External load. Loads data from text format.
+    External load. Load data from text format.
 
   * `is - Save data to internal memory`
 
-    Internal save. Saves data to EEPROM.
+    Internal save. Save data to EEPROM.
 
   * `il - Load data from internal memory`
 
-    Internal load. Loads data from EEPROM.
+    Internal load. Load data from EEPROM.
 
 #### Receiver
 
@@ -88,5 +84,4 @@ Emitter replays data from Memory with signal modulated at 38 kHz.
 
     Replays data from Memory.
 
--- Martin, 2025-11-21
-
+-- Martin, 2025-12-10

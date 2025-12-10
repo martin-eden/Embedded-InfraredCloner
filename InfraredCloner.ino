@@ -144,6 +144,7 @@ void StartRecording_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
+  ClearDurations();
   me_DigitalSignalRecorder::StartRecording();
 }
 
@@ -163,14 +164,6 @@ void Replay_Handler(
   ReplayDurations();
 }
 
-void Discard_Handler(
-  TUint_2 Data [[gnu::unused]],
-  TUint_2 Instance [[gnu::unused]]
-)
-{
-  ClearDurations();
-}
-
 void ExternalSave_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
@@ -184,6 +177,7 @@ void ExternalLoad_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
+  ClearDurations();
   ParseDurations();
 }
 
@@ -200,6 +194,7 @@ void InternalLoad_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
+  ClearDurations();
   LoadFromEeprom();
 }
 
@@ -222,9 +217,6 @@ void AddMenuItems(
   );
   Menu->AddItem(
     ToItem("r", "Replay data", Replay_Handler, Unused)
-  );
-  Menu->AddItem(
-    ToItem("d", "Discard data", Discard_Handler, Unused)
   );
   Menu->AddItem(
     ToItem("es", "Print data to outside", ExternalSave_Handler, Unused)
