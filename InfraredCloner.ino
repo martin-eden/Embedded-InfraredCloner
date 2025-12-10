@@ -48,21 +48,6 @@ void ClearDurations()
   DigitalSignalRecorder.Clear();
 }
 
-void SetupRecorder()
-{
-  DigitalSignalRecorder.Init(AsAddrSeg_M(Signals));
-  me_DigitalSignalRecorder::PrepareRecorder();
-}
-
-void SetupFreqGen()
-{
-  // 22- 26+ .. 48+ 52-
-  const TUint_4 EmitFreq_Hz = 38000;
-
-  if (!me_ModulatedSignalPlayer::SetFrequency_Hz(EmitFreq_Hz))
-    Console.Print("Failed to set frequency.");
-}
-
 /*
   Replay stored signal
 */
@@ -230,6 +215,23 @@ void AddMenuItems(
   Menu->AddItem(
     ToItem("il", "Load data from internal memory", InternalLoad_Handler, Unused)
   );
+}
+
+void SetupRecorder()
+{
+  DigitalSignalRecorder.Init(AsAddrSeg_M(Signals));
+  me_DigitalSignalRecorder::PrepareRecorder();
+}
+
+void SetupFreqGen()
+{
+  // 22- 26+ .. 48+ 52-
+  const TUint_4 EmitFreq_Hz = 38000;
+
+  me_ModulatedSignalPlayer::Init();
+
+  if (!me_ModulatedSignalPlayer::SetFrequency_Hz(EmitFreq_Hz))
+    Console.Print("Failed to set frequency.");
 }
 
 void setup()
