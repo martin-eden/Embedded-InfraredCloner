@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-12-10
+  Last mod.: 2025-12-27
 */
 
 /*
@@ -30,7 +30,6 @@
 
 #include <me_DigitalSignalRecorder.h>
 #include <me_ModulatedSignalPlayer.h>
-#include <me_Duration.h>
 #include <me_Delays.h>
 #include <me_StreamsCollection.h>
 
@@ -49,9 +48,9 @@ void ClearDurations()
 }
 
 /*
-  Replay stored signal
+  Play stored signal
 */
-void ReplayDurations()
+void PlayDurations()
 {
   /*
     Implementation tries to make real observed signal last close to
@@ -59,50 +58,44 @@ void ReplayDurations()
     and data fetching.
 
     Emit() has built-in compensation. Here we compensate delay time
-    for LOW signal.
-
-    Dry time for that functions for empty signal is near
-    <DelayCompensation>. If gap is shorter, we assume it's under 1 ms.
-    We're taking microseconds part and compare it with
-    <DecisionMaking_us>. If it's shorter, we do nothing, we already
-    wasted <DecisionMaking_us>. Else we ca;; microseconds delay
-    for remained number of microseconds.
+    for LOW signal. It consists of loop overhead and overhead in
+    calling and returning from Delay_Us().
   */
 
-  const me_Duration::TDuration DelayCompensation = { 0, 0, 0, 910 };
-  const TUint_2 DecisionMaking_Us = 360;
+  const TUint_4 DelayCompensation_Us = 910;
 
   TUint_2 Index;
   TUint_2 NumSignals;
   me_DigitalSignalRecorder::TSignal Signal;
 
   NumSignals = DigitalSignalRecorder.GetNumSignals();
+
   for (Index = 1; Index <= NumSignals; ++Index)
   {
     DigitalSignalRecorder.GetSignal(&Signal, Index);
 
     if (Signal.IsOn)
-      me_ModulatedSignalPlayer::Emit(Signal.Duration);
-    else if (me_Duration::IsGreater(Signal.Duration, DelayCompensation))
-    {
-      me_Duration::CappedSub(&Signal.Duration, DelayCompensation);
-      me_Delays::Delay_Duration(Signal.Duration);
-    }
-    else if (Signal.Duration.MicroS > DecisionMaking_Us)
-      me_Delays::Delay_Us(Signal.Duration.MicroS - DecisionMaking_Us);
+      me_ModulatedSignalPlayer::Emit_Us(Signal.Duration_Us);
     else
-      ;
+      if (Signal.Duration_Us > DelayCompensation_Us)
+        me_Delays::Delay_Us(Signal.Duration_Us - DelayCompensation_Us);
+      else
+        ;
   }
 }
 
 void PrintDurations()
 {
-  me_DigitalSignalRecorder::TextCodec::Save(&DigitalSignalRecorder);
+  me_DigitalSignalRecorder::TextCodec::
+    Save(&DigitalSignalRecorder, Console.GetOutputStream());
 }
 
 void ParseDurations()
 {
-  if (!me_DigitalSignalRecorder::TextCodec::Load(&DigitalSignalRecorder))
+  if (!
+    me_DigitalSignalRecorder::TextCodec::
+      Load(&DigitalSignalRecorder, Console.GetInputStream())
+  )
     Console.Print("Failed to parse");
 }
 
@@ -141,12 +134,12 @@ void StopRecording_Handler(
   me_DigitalSignalRecorder::StopRecording();
 }
 
-void Replay_Handler(
+void Play_Handler(
   TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
-  ReplayDurations();
+  PlayDurations();
 }
 
 void ExternalSave_Handler(
@@ -201,7 +194,7 @@ void AddMenuItems(
     ToItem("e", "End recording", StopRecording_Handler, Unused)
   );
   Menu->AddItem(
-    ToItem("r", "Replay data", Replay_Handler, Unused)
+    ToItem("p", "Play data", Play_Handler, Unused)
   );
   Menu->AddItem(
     ToItem("es", "Print data to outside", ExternalSave_Handler, Unused)
@@ -267,4 +260,5 @@ void loop()
   2025-10-31
   2025-11-10
   2025-11-18
+  2025-12-27
 */
