@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-12-27
+  Last mod.: 2025-12-28
 */
 
 /*
@@ -62,7 +62,7 @@ void PlayDurations()
     calling and returning from Delay_Us().
   */
 
-  const TUint_4 DelayCompensation_Us = 910;
+  const TUint_4 DelayCompensation_Us = 60;
 
   TUint_2 Index;
   TUint_2 NumSignals;
