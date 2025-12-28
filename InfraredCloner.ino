@@ -39,7 +39,7 @@
 using
   me_DigitalSignalRecorder::DigitalSignalRecorder;
 
-static const TUint_2 NumSignals_Max = 75;
+static const TUint_2 NumSignals_Max = 100;
 static me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
 
 void ClearDurations()
