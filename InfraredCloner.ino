@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2025-12-28
+  Last mod.: 2026-02-12
 */
 
 /*
@@ -22,8 +22,8 @@
 /*
   Wiring
 
-    8 Input
-    6 Output
+    6 IR emitter input
+    8 IR receiver output
 */
 
 #include <me_BaseTypes.h>
@@ -212,7 +212,7 @@ void AddMenuItems(
 
 void SetupRecorder()
 {
-  DigitalSignalRecorder.Init(AsAddrSeg_M(Signals));
+  DigitalSignalRecorder.Init(M_AsAddrSeg(Signals));
   me_DigitalSignalRecorder::PrepareRecorder();
 }
 
