@@ -45,17 +45,18 @@ It allows you to
 It is designed to capture infrared signal from consumer emitters,
 not to replace oscilloscope.
 
-Data points capacity is **75**.
-Precision depends of current implementation.
-Generally writing precision **≈ 50 ㎲**, reading precision **≤ 4 ㎲**
+Emitting frequency: **38 kHz**
+Writing precision: **≤ 20 ㎲**
+Reading precision: **≤ 4 ㎲**
+Data points capacity: **100**
 
-Commands documentation is [here][Commands].
+Commands described [here][Commands].
 
 
 ## Getting started
 
+* Emitter - `pin 5`
 * Receiver - `pin 8`
-* Emitter - `pin 6`
 * Run [`Upload.sh`][Upload.sh]
 * Connect with `115200 baud`
 

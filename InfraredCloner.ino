@@ -22,8 +22,8 @@
 /*
   Wiring
 
-    6 IR emitter input
-    8 IR receiver output
+    5 IR emitter
+    8 IR receiver
 */
 
 #include <me_BaseTypes.h>
