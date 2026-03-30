@@ -20,35 +20,37 @@ It allows you to
   - [x] Store/load signal in text format
   - [x] Store/load signal in permanent memory (EEPROM)
 
-Data points capacity: **100**
-Emitting frequency: **38 kHz**
-Reading precision: **≤ 4 ㎲**
-Writing precision: **≤ 20 ㎲**
+Specs
+
+* Data points: **≤ 100**
+* Emitting frequency: **≈ 38 kHz**
+* Reading precision: **≤ 4 ㎲**
+* Writing precision: **≤ 20 ㎲**
 
 Commands described [here][Commands].
 
 
 ## Getting started
 
-  Hardware requirements
+Hardware requirements
 
-    * Arduino Uno (ATmega328/P)
-    * Generic infrared emitter
-    * Generic infrared receiver
+  * Arduino Uno (ATmega328/P)
+  * Generic infrared emitter
+  * Generic infrared receiver
 
-  Wiring
+Wiring
 
-    * Emitter - `pin 5`
-    * Receiver - `pin 8`
+  * Emitter - `pin 5`
+  * Receiver - `pin 8`
 
-  Software requirements
+Software requirements
 
-    * Compiled binary [`bin/InfraredClonerino.hex`][Hex]
+  * Compiled binary [`bin/InfraredClonerino.hex`][Hex]
 
-    Upload binary to Uno board. We have [`bin/Upload.sh`][Upload.sh]
-    script just for that. (Requires `bash` and `avrdude`.)
+  Upload binary to Uno board. We have [`bin/Upload.sh`][Upload.sh]
+  script just for that. (Requires `bash` and `avrdude`.)
 
-  Connect at `115200 baud`. There will be text menu.
+Connect at `115200 baud`. There will be text menu.
 
 
 ## Recompiling
