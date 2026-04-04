@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2026-02-12
+  Last mod.: 2026-04-04
 */
 
 /*
@@ -41,6 +41,15 @@ using
 
 static const TUint_2 NumSignals_Max = 100;
 static me_DigitalSignalRecorder::TSignal Signals[NumSignals_Max];
+me_Menu::TMenu Menu;
+
+// Menu item structure for our loading purposes. Not same as in [me_Menu]!
+struct TMenuItem
+{
+  TAsciiz Command;
+  TMethod Handler;
+  TAsciiz Description;
+};
 
 void ClearDurations()
 {
@@ -178,36 +187,38 @@ void InternalLoad_Handler(
 
 // )
 
-void AddMenuItems(
-  me_Menu::TMenu * Menu
+void AddMenuItem(
+  TMenuItem Item
 )
 {
-  using
-    me_Menu::Freetown::ToItem;
-
   const TUint_2 Unused = 0;
 
-  Menu->AddItem(
-    ToItem("b", "Begin recording", StartRecording_Handler, Unused)
+  Menu.AddItem(
+    me_Menu::Freetown::ToItem(
+      Item.Command,
+      Item.Description,
+      Item.Handler,
+      Unused
+    )
   );
-  Menu->AddItem(
-    ToItem("e", "End recording", StopRecording_Handler, Unused)
-  );
-  Menu->AddItem(
-    ToItem("p", "Play data", Play_Handler, Unused)
-  );
-  Menu->AddItem(
-    ToItem("es", "Print data to outside", ExternalSave_Handler, Unused)
-  );
-  Menu->AddItem(
-    ToItem("el", "Load data from outside", ExternalLoad_Handler, Unused)
-  );
-  Menu->AddItem(
-    ToItem("is", "Save data to internal memory", InternalSave_Handler, Unused)
-  );
-  Menu->AddItem(
-    ToItem("il", "Load data from internal memory", InternalLoad_Handler, Unused)
-  );
+}
+
+void AddMenuItems()
+{
+  const TUint_1 NumMenuItems = 7;
+  const TMenuItem MenuItems[NumMenuItems] =
+    {
+      { "b", StartRecording_Handler, "Begin recording" },
+      { "e", StopRecording_Handler, "End recording" },
+      { "p", Play_Handler, "Play data" },
+      { "es", ExternalSave_Handler, "Print data to outside" },
+      { "el", ExternalLoad_Handler, "Load data from outside" },
+      { "is", InternalSave_Handler, "Save data to internal memory" },
+      { "il", InternalLoad_Handler, "Load data from internal memory" },
+    };
+
+  for (TUint_1 MenuItemIdx = 0; MenuItemIdx < NumMenuItems; ++MenuItemIdx)
+    AddMenuItem(MenuItems[MenuItemIdx]);
 }
 
 void SetupRecorder()
@@ -237,16 +248,12 @@ void setup()
 
   Console.Print("IR signal player/recorder");
 
-  {
-    me_Menu::TMenu Menu;
+  AddMenuItems();
+  Menu.AddBuiltinCommands();
 
-    AddMenuItems(&Menu);
+  Menu.Print();
 
-    Menu.AddBuiltinCommands();
-    Menu.Print();
-
-    Menu.Run();
-  }
+  Menu.Run();
 
   Console.Print("Done");
 }
@@ -257,4 +264,5 @@ void loop()
 
 /*
   2025 # # # # # # # # # # # # # # # # #
+  2026-04-04
 */
