@@ -6,20 +6,6 @@
 */
 
 /*
-  That's like the 3rd of 4th incarnation of this idea
-
-  Caveat of emitting IR signals that digitalWrite(HIGH) won't work.
-  Receiver will see just one strobe. To keep signal running
-  you need to flip it quite fast, near 38 kHz.
-
-  So it can capture digital signal. It can replay digital signal
-  using base frequency.
-
-  Console interface allows you to remotely control this from
-  another program.
-*/
-
-/*
   Wiring
 
     5 IR emitter
