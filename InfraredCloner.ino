@@ -91,20 +91,20 @@ void ParseDurations()
 
 void SaveToEeprom()
 {
-  me_StreamsCollection::TEepromOutputStream Eeprom;
+  me_StreamsCollection::TEepromOutputStream EepromStream;
 
-  Eeprom.Init();
+  EepromStream.Init();
   me_DigitalSignalRecorder::BinaryCodec::
-    Save(&DigitalSignalRecorder, &Eeprom);
+    Save(&DigitalSignalRecorder, &EepromStream);
 }
 
 void LoadFromEeprom()
 {
-  me_StreamsCollection::TEepromInputStream Eeprom;
+  me_StreamsCollection::TEepromInputStream EepromStream;
 
-  Eeprom.Init();
+  EepromStream.Init();
   me_DigitalSignalRecorder::BinaryCodec::
-    Load(&DigitalSignalRecorder, &Eeprom);
+    Load(&DigitalSignalRecorder, &EepromStream);
 }
 
 // ( Menu item handlers
