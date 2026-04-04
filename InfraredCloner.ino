@@ -51,11 +51,6 @@ struct TMenuItem
   TAsciiz Description;
 };
 
-void ClearDurations()
-{
-  DigitalSignalRecorder.Clear();
-}
-
 /*
   Play stored signal
 */
@@ -131,7 +126,7 @@ void StartRecording_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
-  ClearDurations();
+  DigitalSignalRecorder.Clear();
   me_DigitalSignalRecorder::StartRecording();
 }
 
@@ -164,7 +159,7 @@ void ExternalLoad_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
-  ClearDurations();
+  DigitalSignalRecorder.Clear();
   ParseDurations();
 }
 
@@ -181,7 +176,7 @@ void InternalLoad_Handler(
   TUint_2 Instance [[gnu::unused]]
 )
 {
-  ClearDurations();
+  DigitalSignalRecorder.Clear();
   LoadFromEeprom();
 }
 
