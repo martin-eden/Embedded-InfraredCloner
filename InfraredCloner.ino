@@ -96,8 +96,8 @@ void PrintDurations()
 
 void ParseDurations()
 {
-  if (!
-    me_DigitalSignalRecorder::TextCodec::
+  if (
+    !me_DigitalSignalRecorder::TextCodec::
       Load(&DigitalSignalRecorder, Console.GetInputStream())
   )
     Console.Print("Failed to parse");
@@ -108,7 +108,8 @@ void SaveToEeprom()
   me_StreamsCollection::TEepromOutputStream Eeprom;
 
   Eeprom.Init();
-  me_DigitalSignalRecorder::BinaryCodec::Save(&DigitalSignalRecorder, &Eeprom);
+  me_DigitalSignalRecorder::BinaryCodec::
+    Save(&DigitalSignalRecorder, &Eeprom);
 }
 
 void LoadFromEeprom()
@@ -116,7 +117,8 @@ void LoadFromEeprom()
   me_StreamsCollection::TEepromInputStream Eeprom;
 
   Eeprom.Init();
-  me_DigitalSignalRecorder::BinaryCodec::Load(&DigitalSignalRecorder, &Eeprom);
+  me_DigitalSignalRecorder::BinaryCodec::
+    Load(&DigitalSignalRecorder, &Eeprom);
 }
 
 // ( Menu item handlers
