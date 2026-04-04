@@ -202,6 +202,8 @@ void AddMenuItems()
 
   for (TUint_1 MenuItemIdx = 0; MenuItemIdx < NumMenuItems; ++MenuItemIdx)
     AddMenuItem(MenuItems[MenuItemIdx]);
+
+  Menu.AddBuiltinCommands();
 }
 
 void SetupRecorder()
@@ -224,20 +226,12 @@ void SetupFreqGen()
 void setup()
 {
   Console.Init();
-
   SetupRecorder();
-
   SetupFreqGen();
-
   Console.Print("IR signal player/recorder");
-
   AddMenuItems();
-  Menu.AddBuiltinCommands();
-
   Menu.Print();
-
   Menu.Run();
-
   Console.Print("Done");
 }
 
