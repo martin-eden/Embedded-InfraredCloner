@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2026-04-04
+  Last mod.: 2026-04-05
 */
 
 /*
@@ -200,10 +200,10 @@ void AddMenuItems()
       { "il", InternalLoad_Handler, "Load data from internal memory" },
     };
 
+  Menu.AddBuiltinCommands();
+
   for (TUint_1 MenuItemIdx = 0; MenuItemIdx < NumMenuItems; ++MenuItemIdx)
     AddMenuItem(MenuItems[MenuItemIdx]);
-
-  Menu.AddBuiltinCommands();
 }
 
 void SetupRecorder()
@@ -230,7 +230,7 @@ void setup()
   SetupFreqGen();
   Console.Print("IR signal player/recorder");
   AddMenuItems();
-  Menu.Print();
+  Menu.RunListCommand();
   Menu.Run();
   Console.Print("Done");
 }
