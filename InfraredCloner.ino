@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2026-04-05
+  Last mod.: 2026-04-06
 */
 
 /*
@@ -77,14 +77,14 @@ void PlayDurations()
 void PrintDurations()
 {
   me_DigitalSignalRecorder::TextCodec::
-    Save(&DigitalSignalRecorder, Console.GetOutputStream());
+    Save(&DigitalSignalRecorder);
 }
 
 void ParseDurations()
 {
   if (
     !me_DigitalSignalRecorder::TextCodec::
-      Load(&DigitalSignalRecorder, Console.GetInputStream())
+      Load(&DigitalSignalRecorder)
   )
     Console.Print("Failed to parse");
 }
@@ -103,8 +103,11 @@ void LoadFromEeprom()
   me_StreamsCollection::TEepromInputStream EepromStream;
 
   EepromStream.Init();
-  me_DigitalSignalRecorder::BinaryCodec::
-    Load(&DigitalSignalRecorder, &EepromStream);
+  if (
+    !me_DigitalSignalRecorder::BinaryCodec::
+      Load(&DigitalSignalRecorder, &EepromStream)
+  )
+    Console.Print("Failed to load");
 }
 
 // ( Menu item handlers
