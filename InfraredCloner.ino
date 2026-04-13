@@ -2,7 +2,7 @@
 
 /*
   Author: Martin Eden
-  Last mod.: 2026-04-06
+  Last mod.: 2026-04-13
 */
 
 /*
@@ -33,7 +33,7 @@ me_Menu::TMenu Menu;
 struct TMenuItem
 {
   TAsciiz Command;
-  TMethod Handler;
+  TCallback Handler;
   TAsciiz Description;
 };
 
@@ -113,7 +113,6 @@ void LoadFromEeprom()
 // ( Menu item handlers
 
 void StartRecording_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
@@ -122,7 +121,6 @@ void StartRecording_Handler(
 }
 
 void StopRecording_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
@@ -130,7 +128,6 @@ void StopRecording_Handler(
 }
 
 void Play_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
@@ -138,7 +135,6 @@ void Play_Handler(
 }
 
 void ExternalSave_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
@@ -146,7 +142,6 @@ void ExternalSave_Handler(
 }
 
 void ExternalLoad_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
@@ -155,7 +150,6 @@ void ExternalLoad_Handler(
 }
 
 void InternalSave_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
@@ -163,7 +157,6 @@ void InternalSave_Handler(
 }
 
 void InternalLoad_Handler(
-  TUint_2 Data [[gnu::unused]],
   TUint_2 Instance [[gnu::unused]]
 )
 {
